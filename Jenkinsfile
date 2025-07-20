@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    GIT_REPO = 'https://github.com/your-username/infra-patching-playbooks.git'
+    GIT_REPO = 'https://github.com/abrar05/infra-patching-playbooks.git'
     BRANCH = 'main'
   }
 
@@ -27,7 +27,7 @@ pipeline {
 
     stage('Deploy to Test Servers') {
       steps {
-        ansiblePlaybook credentialsId: 'your-ansible-ssh-key-id',
+        ansiblePlaybook credentialsId: 'ansible-key',
                          inventory: 'inventory/test.ini',
                          playbook: 'playbooks/patch-windows.yml'
       }
@@ -36,12 +36,12 @@ pipeline {
 
   post {
     success {
-      mail to: 'your-email@example.com',
+      mail to: 'abrara05@gmail.com',
            subject: "Jenkins Build Successful",
            body: "The pipeline executed successfully."
     }
     failure {
-      mail to: 'your-email@example.com',
+      mail to: 'abrara05@gmail.com',
            subject: "Jenkins Build Failed",
            body: "Check the Jenkins console for errors."
     }
